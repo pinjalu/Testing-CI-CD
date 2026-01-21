@@ -1,10 +1,10 @@
 [phases.setup]
-nixPkgs = ["python311Full"]  # includes pip
+# Install full Python with pip included
+nixPkgs = ["python311Full"]
 
 [phases.install]
+# Use pip as installed in the Nix environment; do NOT try to upgrade
 cmds = [
-    "python -m ensurepip --upgrade",   # ensure pip exists
-    "python -m pip install --upgrade pip",
     "python -m pip install -r requirements.txt"
 ]
 

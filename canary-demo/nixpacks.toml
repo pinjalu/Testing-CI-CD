@@ -1,8 +1,12 @@
 [phases.setup]
-nixPkgs = ["python311Full"]  # Includes pip
+nixPkgs = ["python311Full"]  # includes pip
 
 [phases.install]
-cmds = ["pip install --upgrade pip", "pip install -r requirements.txt"]
+cmds = [
+    "python -m ensurepip --upgrade",   # ensure pip exists
+    "python -m pip install --upgrade pip",
+    "python -m pip install -r requirements.txt"
+]
 
 [phases.build]
 cmds = ["echo 'Build complete'"]

@@ -118,7 +118,14 @@ app = Flask(__name__)
 
 # Configuration
 SHOW_NEW_FEATURE = os.getenv('SHOW_NEW_FEATURE', 'false').lower() == 'true'
-CANARY_PERCENTAGE = int(os.getenv('CANARY_PERCENTAGE', '10'))
+
+_raw_canary = os.getenv("CANARY_PERCENTAGE", "10")
+try:
+    CANARY_PERCENTAGE = int(str(_raw_canary).strip().lstrip("="))
+except ValueError:
+    CANARY_PERCENTAGE = 10
+
+CANARY_PERCENTAGE = max(0, min(100, CANARY_PERCENTAGE))
 
 # Store user session to maintain consistency
 # In production, you'd use Redis or a proper session store
